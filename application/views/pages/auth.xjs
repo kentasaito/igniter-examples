@@ -1,0 +1,4 @@
+<h1>認証機能の例</h1>
+<p>メンバー登録するとIDとしてULIDが返され、そのIDでログインできます。</p>
+
+<? this.require("/parts" + (this.req.sessionValues.member ? "/loggedIn" : "/notLoggedIn")); ?>

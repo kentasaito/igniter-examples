@@ -1,0 +1,2 @@
+<!doctype html>
+<? this.require("/pages" + this.req.path, params); ?>

@@ -1,0 +1,31 @@
+<div id="loginForm">
+<input class="id" placeholder="Member ID">
+<button class="login">Login</button>
+</div>
+
+<div id="registerForm">
+<input class="name" placeholder="Member Name">
+<button class="register">Register</button>
+</div>
+
+<script type="module">
+document.querySelector("#loginForm .login").onclick = () => {
+  fetch("/api/auth/login?id=" + document.querySelector("#loginForm .id").value).then((res) => {
+    res.status === 200 ? location.reload() : alert("Failed.");
+  });
+};
+
+document.querySelector("#registerForm .register").onclick = () => {
+  fetch("/api/auth/register", {
+    method: "post",
+    body: JSON.stringify({
+      value: {
+        name: document.querySelector("#registerForm .name").value,
+      },
+    }),
+  }).then(async (res) => {
+    const data = await res.json();
+    res.status === 200 ? alert(data.id) : alert("Failed.");
+  });
+};
+</script>

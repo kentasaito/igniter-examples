@@ -1,0 +1,42 @@
+<h1>KVの利用</h1>
+<p>選択された画像をBASE64エンコードしてKVにセットします。</p>
+
+<div id="images">
+</div>
+<input id="file" type="file">
+
+<script type="module">
+  globalThis.onpageshow = () => {
+    fetch("/api/getGroup").then(async (res) => {
+      const data = await res.json();
+      for (const id of Object.keys(data.group)) {
+        const img = document.createElement("img");
+        img.title = data.group[id].name;
+        img.src = data.group[id].base64;
+        document.getElementById("images").append(img);
+      }
+    });
+  };
+
+  function fileToBase64(file) {
+    return new Promise((resolve) => {
+      const fileReader = new FileReader();
+      fileReader.onload = () => {
+        resolve(fileReader.result);
+      }
+      fileReader.readAsDataURL(file);
+    });
+  }
+
+  document.getElementById("file").onchange = (event) => {
+    fileToBase64(event.target.files[0]).then((base64) => {
+      const name = event.target.files[0].name;
+      fetch("/api/set", {
+        method: "post",
+        body: JSON.stringify({ name, base64 }),
+      }).then(() => {
+        location.reload();
+      });
+    });
+  };
+</script>

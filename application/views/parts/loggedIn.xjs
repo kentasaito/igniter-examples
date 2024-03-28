@@ -1,0 +1,22 @@
+<div id="logoutForm">
+Logged in as <strong id="memberName"><? this.echo(this.req.sessionValues.member.name); ?></strong>
+<button class="logout">Logout</button>
+</div>
+
+<div id="unregisterForm">
+<button class="unregister">Unregister</button>
+</div>
+
+<script type="module">
+document.querySelector("#logoutForm .logout").onclick = () => {
+  fetch("/api/auth/logout").then((res) => {
+    res.status === 200 ? location.reload() : alert("Failed.");
+  });
+};
+
+document.querySelector("#unregisterForm .unregister").onclick = () => {
+  fetch("/api/auth/unregister").then((res) => {
+    res.status === 200 ? location.reload() : alert("Failed.");
+  });
+};
+</script>

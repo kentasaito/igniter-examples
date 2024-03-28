@@ -1,0 +1,13 @@
+<h1>APIの利用</h1>
+<p>"hello"はサーバサイドでレンダリングされたものではなく、APIのレスポンスから動的に表示しています。</p>
+
+<div id="message"></div>
+
+<script type="module">
+  globalThis.onpageshow = () => {
+    fetch("/api/api").then(async (res) => {
+      const data = await res.json();
+      document.getElementById("message").innerText = data.message;
+    });
+  };
+</script>

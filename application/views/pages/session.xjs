@@ -1,0 +1,7 @@
+<h1>セッションの利用</h1>
+<p>
+リクエストの度にcountをインクリメントし、10になったときにセッションを破棄しています。<br>
+CookieのsessionIdが変化するのを確認してください。<br>
+</p>
+
+count = <? this.echo(params.data.count); ?>

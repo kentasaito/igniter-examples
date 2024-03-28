@@ -1,0 +1,17 @@
+<h1>メール送信の例</h1>
+<p>/.envに接続情報などを入力しておく必要があります。</p>
+
+<textarea id="content"></textarea>
+<button id="send">Send</button>
+
+<script type="module">
+  document.getElementById("send").onclick = () => {
+    const content = document.getElementById("content").value;
+    fetch("/api/send", {
+      method: "post",
+      body: JSON.stringify({ content }),
+    }).then((res) => {
+      res.status === 200 ? alert("Sent.") : alert("Failed.");
+    });
+  };
+</script>
